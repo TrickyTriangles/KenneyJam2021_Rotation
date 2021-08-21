@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     public int score = 3000; // This is the "year" we display
     [SerializeField] private float score_tick_delay = 1f;
-    public int money;
+    private int money;
+    public int Money
+    {
+        get { return money; }
+        set
+        {
+            money = value;
+            MoneyUpdated?.Invoke(money);
+        }
+    }
 
     #region Delegates and Subscriber Methods
 
@@ -25,8 +35,28 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
+    protected override void Awake()
+    {
+        Subscribe_InitializationFailedCallback(Singleton_InitializationFailedCallback);
+
+        base.Awake();
+    }
+
     private void Start()
     {
+        DontDestroyOnLoad(this);
+        BeginNewGame();
+    }
+
+    private void Singleton_InitializationFailedCallback()
+    {
+        Destroy(gameObject);
+    }
+
+    public void BeginNewGame()
+    {
+        score = 3000;
+        money = 0;
         StartCoroutine(PlayGame());
     }
 
@@ -46,6 +76,12 @@ public class GameManager : Singleton<GameManager>
             {
                 money += 10;
                 MoneyUpdated?.Invoke(money);
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                StopAllCoroutines();
+                SceneManager.LoadScene("GameOverScene");
             }
 
             yield return null;
@@ -72,5 +108,11 @@ public class GameManager : Singleton<GameManager>
 
             yield return null;
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        Unsubscribe_InitializationFailedCallback(Singleton_InitializationFailedCallback);
+        base.OnDestroy();
     }
 }

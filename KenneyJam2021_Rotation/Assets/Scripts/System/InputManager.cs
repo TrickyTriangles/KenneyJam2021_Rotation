@@ -37,7 +37,8 @@ public class InputManager : Singleton<InputManager>
         {
             if (hit.collider.CompareTag("Unit"))
             {
-                //PlayerUnit selection = hit.collider.GetComponent<PlayerUnit>();
+                PlayerUnit selection = hit.collider.GetComponentInParent<PlayerUnit>();
+                selection.HandleClick();
                 return true;
             }
         }

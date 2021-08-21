@@ -2,16 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StateMachine.Player_Unit;
+using System;
 
 public class PlayerUnit : MonoBehaviour
 {
+    public enum Direction
+    {
+        LEFT,
+        RIGHT
+    }
+
     private StateMachine.StateMachine<PlayerUnitBaseState> state_machine;
     [SerializeField] private UnitProfile profile;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
+
+    public Animator anim
+    {
+        get { return animator; }
+    }
+
+    public float velocity
+    {
+        get { return profile.velocity; }
+    }
+
+    private EventHandler UnitClicked;
+    public void Subscribe_UnitClicked(EventHandler sub) { UnitClicked += sub; }
+    public void Unsubscribe_UnitClicked(EventHandler sub) { UnitClicked -= sub; }
 
     private void Start()
     {
         state_machine = new StateMachine.StateMachine<PlayerUnitBaseState>(this, new PlayerUnitBaseState());
-        state_machine.SetNextState(new Move(profile.velocity));
+        BeginMovement();
 
         if (GameManager.Instance != null)
         {
@@ -24,8 +47,53 @@ public class PlayerUnit : MonoBehaviour
         state_machine.SetNextState(new Idle());
     }
 
-    public void MoveUnit(Task task)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        state_machine.SetNextState(new Move(profile.velocity));
+        if (collision.gameObject.CompareTag("Task"))
+        {
+            Task task = collision.gameObject.GetComponent<Task>();
+        }
+    }
+
+    public void SetDirection(Direction new_direction)
+    {
+        if (sprite != null)
+        {
+            switch (new_direction)
+            {
+                case Direction.LEFT:
+                    sprite.flipX = true;
+                    break;
+                case Direction.RIGHT:
+                    sprite.flipX = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void BeginMovement()
+    {
+        float number = UnityEngine.Random.Range(-10f, 10f);
+
+        if (number > 0)
+        {
+            state_machine.SetNextState(new Move(Direction.LEFT));
+        }
+        else
+        {
+            state_machine.SetNextState(new Move(Direction.RIGHT));
+        }
+    }
+
+    public void HandleClick()
+    {
+        UnitClicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ChangeState(PlayerUnitBaseState state)
+    {
+        state_machine.SetNextState(state);
     }
 }

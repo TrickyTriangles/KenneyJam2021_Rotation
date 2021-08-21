@@ -1,7 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Task : MonoBehaviour
 {
+    public enum TaskType
+    {
+        MINING,
+        ATTACKING,
+        RESTING
+    }
+
+    public class TaskCompletedEventArgs : EventArgs
+    {
+        public TaskType type;
+
+        public TaskCompletedEventArgs(TaskType _type)
+        {
+            type = _type;
+        }
+    }
+
+    private int vitality = 1;
+
+    protected EventHandler TaskCompleted;
+    public void Subscribe_TaskCompleted(EventHandler sub) { TaskCompleted += sub; }
+    public void Unsubscribe_TaskCompleted(EventHandler sub) { TaskCompleted -= sub; }
 }
