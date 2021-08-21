@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/Unit Profile")]
 public class UnitProfile : ScriptableObject
 {
-    [Range(1, 3)] public int MiningStrength = 1;
-    [Range(1, 3)] public int CombatStrength = 1;
-    [Range(1, 3)] public int BuildingStrength = 1;
+    public float velocity = 10f;
+    [Min(1)] public int MiningStrength = 1;
+    [Min(1)] public int CombatStrength = 1;
+
 }

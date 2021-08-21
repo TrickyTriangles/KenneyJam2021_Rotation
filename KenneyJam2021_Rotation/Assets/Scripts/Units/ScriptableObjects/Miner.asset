@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c89df9d9af8b5140bab45a7e565acd5, type: 3}
   m_Name: Miner
   m_EditorClassIdentifier: 
+  velocity: 10
   MiningStrength: 3
   CombatStrength: 1
-  BuildingStrength: 2

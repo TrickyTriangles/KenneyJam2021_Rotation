@@ -8,28 +8,21 @@ namespace StateMachine.Player_Unit
 {
     public class Move : PlayerUnitBaseState
     {
-        private Task destination;
-        private float duration = 2f;
+        private float velocity;
 
-        public Move(Task _destination)
+        public Move(float _velocity)
         {
-            destination = _destination;
+            velocity = _velocity;
         }
 
         public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)
         {
-            float timer = 0f;
-            Vector3 start_pos = subject.transform.position;
-
-            while (timer < duration)
+            while (true)
             {
-                timer += Time.deltaTime;
-                subject.transform.position = Vector3.Slerp(start_pos, destination.transform.position, MathUtils.SmootherStep(0f, duration, timer));
+                subject.transform.rotation *= Quaternion.Euler(new Vector3(0f, 0f, velocity * Time.deltaTime));
 
                 yield return null;
             }
-
-            next_state_callback?.Invoke(new Idle());
         }
     }
 }
