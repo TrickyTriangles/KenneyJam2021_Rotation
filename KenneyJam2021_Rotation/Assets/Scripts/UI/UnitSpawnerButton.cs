@@ -32,6 +32,7 @@ public class UnitSpawnerButton : MonoBehaviour
     {
         can_press = false;
         GameManager.Instance.Money -= unit_cost;
+        SoundManagerScript.PlaySound("BuyUnit");
 
         if (anim != null) { anim.Play("Pressed", 0); }
         yield return null;

@@ -7,6 +7,11 @@ using StateMachine;
 
 public class Defeat : EnemyBaseState
 {
+    public Defeat()
+    {
+        SoundManagerScript.PlaySound("EnemyDeath");
+    }
+
     public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)
     {
         EnemyTask task = subject as EnemyTask;

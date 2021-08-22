@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2289549003743468700}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.42307693}
@@ -127,7 +127,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1538461, y: 0.84615386}
+  m_Size: {x: 0.7, y: 0.84615386}
   m_EdgeRadius: 0
 --- !u!1 &5116111612251242994
 GameObject:
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 6410378535596680059}
   m_Layer: 0
   m_Name: MiningTask
-  m_TagString: Untagged
+  m_TagString: Task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,3 +198,4 @@ MonoBehaviour:
   profile: {fileID: 11400000, guid: 1cd78ed75bbbf83449f6511dea2c5d44, type: 2}
   sprite: {fileID: 5116111611503146810}
   animator: {fileID: 5116111611503146809}
+  hitbox: {fileID: 2289549003743468700}

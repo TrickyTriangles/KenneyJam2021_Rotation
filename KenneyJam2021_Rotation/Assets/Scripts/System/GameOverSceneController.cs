@@ -10,20 +10,17 @@ public class GameOverSceneController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(GameOverSceneRoutine());
-    }
-
-    private IEnumerator GameOverSceneRoutine()
-    {
         if (final_score_readout != null)
         {
             if (GameManager.Instance != null)
             {
-                final_score_readout.text = "You survived until the year " + GameManager.Instance.score;
+                final_score_readout.text = GameManager.Instance.Score.ToString();
             }
         }
+    }
 
-        yield return new WaitForSeconds(5f);
+    public void ContinueButtonClicked()
+    {
         SceneManager.LoadScene("TitleScreen");
     }
 }

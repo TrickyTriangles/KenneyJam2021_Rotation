@@ -32,28 +32,31 @@ public class DoTask : PlayerUnitBaseState
 
         while (true)
         {
+            // Perform task
             switch (task.GetTaskProfile().type)
             {
                 case Task.TaskType.MINING:
-                    Debug.Log("Doing mining task.");
                     ICompleteable comp = task;
-                    comp.DoTask();
+                    comp.DoTask(unit.Profile);
                     break;
                 case Task.TaskType.ATTACKING:
-                    Debug.Log("Doing attacking task.");
                     PlayerProjectile projectile = GameObject.Instantiate(unit.Projectile, Vector3.zero, unit.transform.rotation).GetComponent<PlayerProjectile>();
                     if (projectile != null)
                     {
-                        projectile.Initialize(task);
+                        projectile.Initialize(task, unit.Profile);
                     }
                     break;
                 case Task.TaskType.RESTING:
-                    Debug.Log("Doing resting task.");
                     break;
                 default:
                     break;
             }
 
+            // Damage unit
+            unit.LoseVitality(1);
+            yield return null;
+
+            // Wait for next tick
             while (timer < task.GetTaskTime())
             {
                 if (task_ended)

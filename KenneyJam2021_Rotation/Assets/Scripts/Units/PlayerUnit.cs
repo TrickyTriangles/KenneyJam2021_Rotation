@@ -17,10 +17,13 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private Collider2D hitbox;
     private Rigidbody2D rb;
 
     [SerializeField] private Task active_task;
     private Direction last_direction;
+    private bool alive = true;
+    private int vitality;
 
     #region Properties
 
@@ -75,34 +78,45 @@ public class PlayerUnit : MonoBehaviour
         {
             GameManager.Instance.Subscribe_GameEnd(GameManager_GameEnd);
         }
+
+        vitality = profile.base_vitality;
     }
 
     private void GameManager_GameEnd()
     {
-        state_machine.SetNextState(new Idle());
+        if (alive)
+        {
+            state_machine.SetNextState(new Idle());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Task"))
+        if (alive)
         {
-            if (active_task == null)
+            if (collision.gameObject.CompareTag("Task"))
             {
-                Task task = collision.gameObject.GetComponentInParent<Task>();
-                active_task = task;
-                state_machine.SetNextState(new DoTask(active_task));
+                if (active_task == null)
+                {
+                    Task task = collision.gameObject.GetComponentInParent<Task>();
+                    active_task = task;
+                    state_machine.SetNextState(new DoTask(active_task));
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (active_task != null)
+        if (alive)
         {
-            if (collision.gameObject == active_task.gameObject)
+            if (active_task != null)
             {
-                active_task = null;
-                state_machine.SetNextState(new Move(last_direction));
+                if (collision.gameObject == active_task.gameObject)
+                {
+                    active_task = null;
+                    state_machine.SetNextState(new Move(last_direction));
+                }
             }
         }
     }
@@ -129,25 +143,49 @@ public class PlayerUnit : MonoBehaviour
 
     private void BeginMovement()
     {
-        float number = UnityEngine.Random.Range(-10f, 10f);
+        if (alive)
+        {
+            float number = UnityEngine.Random.Range(-10f, 10f);
 
-        if (number > 0)
-        {
-            state_machine.SetNextState(new Move(Direction.LEFT));
+            if (number > 0)
+            {
+                state_machine.SetNextState(new Move(Direction.LEFT));
+            }
+            else
+            {
+                state_machine.SetNextState(new Move(Direction.RIGHT));
+            }
         }
-        else
+    }
+
+    public void LoseVitality(int number)
+    {
+        if (alive)
         {
-            state_machine.SetNextState(new Move(Direction.RIGHT));
+            vitality -= number;
+
+            if (vitality <= 0)
+            {
+                alive = false;
+                hitbox.enabled = false;
+                state_machine.SetNextState(new StateMachine.Player_Unit.Defeat());
+            }
         }
     }
 
     public void HandleClick()
     {
-        UnitClicked?.Invoke(this, EventArgs.Empty);
+        if (alive)
+        {
+            UnitClicked?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void ChangeState(PlayerUnitBaseState state)
     {
-        state_machine.SetNextState(state);
+        if (alive)
+        {
+            state_machine.SetNextState(state);
+        }
     }
 }

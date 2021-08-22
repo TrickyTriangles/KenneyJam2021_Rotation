@@ -31,6 +31,7 @@ public class MainMenu : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.BeginNewGame();
+                SoundManagerScript.PlaySound("StartGameButton");
             }
 
             SceneManager.LoadScene("SampleScene");
@@ -41,11 +42,15 @@ public class MainMenu : MonoBehaviour
     {
         if (can_select)
         {
+            SoundManagerScript.PlaySound("StartGameButton");
             main_canvas.gameObject.SetActive(false);
             instructions_canvas.gameObject.SetActive(true);
         }
     }
 
+    /// <summary>
+    /// Unused
+    /// </summary>
     public void ReturnButtonClicked()
     {
         main_canvas.gameObject.SetActive(true);

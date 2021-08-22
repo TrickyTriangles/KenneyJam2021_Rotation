@@ -15,3 +15,4 @@ MonoBehaviour:
   type: 0
   base_vitality: 10
   base_time_per_tick: 1
+  diamond_reward_per_tick: 3

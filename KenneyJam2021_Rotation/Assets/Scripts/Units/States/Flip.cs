@@ -17,6 +17,7 @@ public class Flip : PlayerUnitBaseState
     public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)
     {
         PlayerUnit unit = subject as PlayerUnit;
+        SoundManagerScript.PlaySound("TurnAround", 0.5f);
         unit.anim.Play("Flip", 0);
         yield return null;
 

@@ -7,6 +7,11 @@ namespace StateMachine._MiningTask
 {
     public class Defeat : MiningTaskBaseState
     {
+        public Defeat()
+        {
+            SoundManagerScript.PlaySound("RocksBreaking");
+        }
+
         public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)
         {
             MiningTask task = subject as MiningTask;

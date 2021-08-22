@@ -9,6 +9,7 @@ namespace StateMachine.Enemy
     {
         public Appear()
         {
+            SoundManagerScript.PlaySound("MonsterSpawning", 0.1f);
         }
 
         public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)

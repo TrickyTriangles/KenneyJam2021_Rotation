@@ -50,6 +50,8 @@ MonoBehaviour:
   sprite: {fileID: 2965692479136123372}
   animator: {fileID: 1625169066}
   projectile: {fileID: 7058631251076877931, guid: 0523cedc21fa7d74694d6f42a8a896a6, type: 3}
+  hitbox: {fileID: 2965692479136123377}
+  active_task: {fileID: 0}
 --- !u!95 &1625169066
 Animator:
   serializedVersion: 3

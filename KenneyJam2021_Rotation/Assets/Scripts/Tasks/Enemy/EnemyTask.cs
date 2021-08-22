@@ -67,10 +67,10 @@ public class EnemyTask : Task, ICompleteable
         return profile;
     }
 
-    void ICompleteable.DoTask()
+    void ICompleteable.DoTask(UnitProfile unit)
     {
-        Debug.Log("Hit!");
-        vitality--;
+        vitality -= unit.CombatStrength;
+        SoundManagerScript.PlaySound("EnemyHit");
 
         if (vitality <= 0)
         {

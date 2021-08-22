@@ -178,6 +178,7 @@ MonoBehaviour:
   sprite: {fileID: 1580815267356658279}
   animator: {fileID: 6556649528982077542}
   projectile: {fileID: 7058631251076877931, guid: 0523cedc21fa7d74694d6f42a8a896a6, type: 3}
+  hitbox: {fileID: 1580815267356658298}
   active_task: {fileID: 0}
 --- !u!50 &2306574222644524436
 Rigidbody2D:

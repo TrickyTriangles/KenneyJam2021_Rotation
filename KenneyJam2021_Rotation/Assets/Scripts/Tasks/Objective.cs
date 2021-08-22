@@ -29,11 +29,7 @@ public class Objective : MonoBehaviour
         }
         else
         {
-            if (animator != null)
-            {
-                animator.Play("Hit", 0);
-                animator.playbackTime = 0f;
-            }
+            SoundManagerScript.PlaySound("TempleBeingAttacked");
         }
     }
 }

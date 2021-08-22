@@ -28,7 +28,7 @@ public class Task : MonoBehaviour, ICompleteable
     public void Subscribe_TaskCompleted(EventHandler sub) { TaskCompleted += sub; }
     public void Unsubscribe_TaskCompleted(EventHandler sub) { TaskCompleted -= sub; }
 
-    void ICompleteable.DoTask()
+    void ICompleteable.DoTask(UnitProfile unit)
     {
     }
 
@@ -39,6 +39,6 @@ public class Task : MonoBehaviour, ICompleteable
 
     public virtual TaskProfile GetTaskProfile()
     {
-        return new TaskProfile();
+        return ScriptableObject.CreateInstance<TaskProfile>();
     }
 }

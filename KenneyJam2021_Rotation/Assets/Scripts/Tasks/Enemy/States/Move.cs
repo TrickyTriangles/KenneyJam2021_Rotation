@@ -44,7 +44,9 @@ namespace StateMachine.Enemy
                 {
                     if (task.Projectile != null)
                     {
-                        GameObject.Instantiate(task.Projectile, Vector3.zero, task.transform.rotation);
+                        EnemyProjectile projectile = GameObject.Instantiate(task.Projectile, Vector3.zero, task.transform.rotation).GetComponent<EnemyProjectile>();
+                        projectile.SetPower(task.GetTaskProfile().shot_power);
+                        SoundManagerScript.PlaySound("Debug");
                     }
 
                     timer = 0f;

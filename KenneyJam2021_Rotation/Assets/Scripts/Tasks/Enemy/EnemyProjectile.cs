@@ -8,6 +8,7 @@ public class EnemyProjectile : MonoBehaviour
     private Rigidbody2D rb;
     private float start_angle;
     private Vector3 current_angle;
+    private int power = 1;
 
     private void Start()
     {
@@ -22,6 +23,11 @@ public class EnemyProjectile : MonoBehaviour
 
         current_angle.z += velocity * dir * Time.deltaTime;
         rb.SetRotation(Quaternion.Euler(current_angle));
+    }
+
+    public void SetPower(int _power)
+    {
+        power = _power;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +46,12 @@ public class EnemyProjectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Unit"))
         {
-            // Damage unit
+            PlayerUnit unit = collision.gameObject.GetComponentInParent<PlayerUnit>();
+            if (unit != null)
+            {
+                unit.LoseVitality(power);
+            }
+
             Destroy(gameObject);
         }
     }

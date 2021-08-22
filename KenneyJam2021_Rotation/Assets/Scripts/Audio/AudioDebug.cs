@@ -14,7 +14,7 @@ public class AudioDebug : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-                SoundManagerScript.PlaySound("Debug");
+                //SoundManagerScript.PlaySound("Debug");
         
     }
 }
