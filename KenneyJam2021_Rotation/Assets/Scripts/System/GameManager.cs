@@ -8,6 +8,11 @@ public class GameManager : Singleton<GameManager>
 {
     public int score = 3000; // This is the "year" we display
     [SerializeField] private float score_tick_delay = 1f;
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject enemy_prefab;
+    [SerializeField] private GameObject mine_task_prefab;
+
     private int money;
     public int Money
     {
@@ -82,6 +87,14 @@ public class GameManager : Singleton<GameManager>
             {
                 StopAllCoroutines();
                 SceneManager.LoadScene("GameOverScene");
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (enemy_prefab != null)
+                {
+                    Instantiate(enemy_prefab, Vector3.zero, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(90f, 270f)));
+                }
             }
 
             yield return null;

@@ -39,7 +39,7 @@ public class EnemyTask : Task, ICompleteable
     {
         vitality = profile.base_vitality;
         state_machine = new StateMachine<EnemyBaseState>(this, new EnemyBaseState());
-        state_machine.SetNextState(new Appear());
+        state_machine.SetNextState(new Appear(180f));
         Subscribe_TaskCompleted(Task_OnComplete);
         rb = GetComponent<Rigidbody2D>();
     }
