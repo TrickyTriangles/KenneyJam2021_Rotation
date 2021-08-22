@@ -1775,10 +1775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initial_score: 2021
-  initial_money: 40
+  initial_money: 35
   score_tick_delay: 1
   max_number_of_mines: 2
-  mine_spawn_delay: {x: 8, y: 10}
+  mine_spawn_delay: {x: 10, y: 12}
   max_number_of_enemies: 14
   enemy_spawn_delay: {x: 5, y: 6}
   enemy_prefab: {fileID: 2943688296780159711, guid: c89347c5fc2ca9b49a9de20dbfabe2aa, type: 3}
@@ -1868,7 +1868,7 @@ MonoBehaviour:
   spawn_transform: {fileID: 781529861}
   anim: {fileID: 1583484917}
   cost_readout: {fileID: 598943596}
-  unit_cost: 10
+  unit_cost: 5
 --- !u!95 &1583484917
 Animator:
   serializedVersion: 3

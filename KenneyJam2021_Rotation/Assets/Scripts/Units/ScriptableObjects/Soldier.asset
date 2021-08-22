@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Soldier
   m_EditorClassIdentifier: 
   velocity: 12
-  base_vitality: 10
+  base_vitality: 5
   MiningStrength: 1
   CombatStrength: 5
