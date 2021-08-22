@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Enemy
   m_EditorClassIdentifier: 
   type: 1
-  base_vitality: 5
+  base_vitality: 10
   base_time_per_tick: 1
+  diamond_reward_per_tick: 0
+  shot_power: 0

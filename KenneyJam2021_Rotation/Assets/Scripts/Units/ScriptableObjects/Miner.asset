@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Miner
   m_EditorClassIdentifier: 
   velocity: 10
+  base_vitality: 5
   MiningStrength: 3
   CombatStrength: 1

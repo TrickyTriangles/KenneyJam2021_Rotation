@@ -16,3 +16,4 @@ MonoBehaviour:
   base_vitality: 10
   base_time_per_tick: 1
   diamond_reward_per_tick: 3
+  shot_power: 0
