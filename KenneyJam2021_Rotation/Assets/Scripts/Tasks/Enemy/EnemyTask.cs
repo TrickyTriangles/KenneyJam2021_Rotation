@@ -39,7 +39,7 @@ public class EnemyTask : Task, ICompleteable
     {
         vitality = profile.base_vitality;
         state_machine = new StateMachine<EnemyBaseState>(this, new EnemyBaseState());
-        state_machine.SetNextState(new Appear(180f));
+        state_machine.SetNextState(new Appear());
         Subscribe_TaskCompleted(Task_OnComplete);
         rb = GetComponent<Rigidbody2D>();
     }
@@ -85,10 +85,10 @@ public class EnemyTask : Task, ICompleteable
             switch (new_direction)
             {
                 case Move.Direction.RIGHT:
-                    sprite.flipX = true;
+                    sprite.flipX = false;
                     break;
                 case Move.Direction.LEFT:
-                    sprite.flipX = false;
+                    sprite.flipX = true;
                     break;
                 default:
                     break;

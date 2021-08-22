@@ -19,7 +19,7 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] private GameObject projectile;
     private Rigidbody2D rb;
 
-    private Task active_task;
+    [SerializeField] private Task active_task;
     private Direction last_direction;
 
     #region Properties
@@ -95,11 +95,11 @@ public class PlayerUnit : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (active_task != null)
         {
-            if (other.gameObject == active_task.gameObject)
+            if (collision.gameObject == active_task.gameObject)
             {
                 active_task = null;
                 state_machine.SetNextState(new Move(last_direction));

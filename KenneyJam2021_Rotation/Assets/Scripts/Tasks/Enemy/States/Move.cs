@@ -36,7 +36,7 @@ namespace StateMachine.Enemy
 
             while (true)
             {
-                current_angle = Vector3.MoveTowards(current_angle, Vector3.zero, velocity * Time.deltaTime);
+                current_angle = Vector3.MoveTowards(current_angle, Vector3.zero, velocity * dir * Time.deltaTime);
                 task.RigidBody.SetRotation(Quaternion.Euler(current_angle));
                 timer += Time.deltaTime;
 

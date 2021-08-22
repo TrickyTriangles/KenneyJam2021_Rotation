@@ -6,17 +6,21 @@ public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float velocity;
     private Rigidbody2D rb;
+    private float start_angle;
     private Vector3 current_angle;
 
     private void Start()
     {
         current_angle = transform.rotation.eulerAngles;
+        start_angle = transform.rotation.eulerAngles.z;
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        current_angle = Vector3.MoveTowards(current_angle, Vector3.zero, velocity * Time.deltaTime);
+        float dir = start_angle > 180f ? 1f : -1f;
+
+        current_angle.z += velocity * dir * Time.deltaTime;
         rb.SetRotation(Quaternion.Euler(current_angle));
     }
 

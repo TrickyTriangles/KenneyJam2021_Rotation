@@ -7,11 +7,8 @@ namespace StateMachine.Enemy
 {
     public class Appear : EnemyBaseState
     {
-        float start_rotation;
-
-        public Appear(float start_value)
+        public Appear()
         {
-            start_rotation = start_value;
         }
 
         public override IEnumerator ProcessState(MonoBehaviour subject, Action<BaseState> next_state_callback)
@@ -35,7 +32,7 @@ namespace StateMachine.Enemy
 
             float z = task.transform.rotation.eulerAngles.z;
 
-            if (start_rotation > 180f)
+            if (z > 180f)
             {
                 next_state_callback(new Move(Move.Direction.RIGHT));
             }
