@@ -16,7 +16,18 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] private UnitProfile profile;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject projectile;
     private Rigidbody2D rb;
+
+    private Task active_task;
+    private Direction last_direction;
+
+    #region Properties
+
+    public UnitProfile Profile
+    {
+        get { return profile; }
+    }
 
     public Animator anim
     {
@@ -33,9 +44,26 @@ public class PlayerUnit : MonoBehaviour
         get { return rb; }
     }
 
-    private EventHandler UnitClicked;
-    public void Subscribe_UnitClicked(EventHandler sub) { UnitClicked += sub; }
-    public void Unsubscribe_UnitClicked(EventHandler sub) { UnitClicked -= sub; }
+    public GameObject Projectile
+    {
+        get { return projectile; }
+    }
+
+    public Direction LastDirection
+    {
+        get { return last_direction; }
+    }
+
+    #endregion
+
+    #region Delegates and Subscriber Methods
+
+        private EventHandler UnitClicked;
+        public void Subscribe_UnitClicked(EventHandler sub) { UnitClicked += sub; }
+        public void Unsubscribe_UnitClicked(EventHandler sub) { UnitClicked -= sub; }
+
+    #endregion
+
 
     private void Start()
     {
@@ -58,7 +86,24 @@ public class PlayerUnit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Task"))
         {
-            Task task = collision.gameObject.GetComponent<Task>();
+            if (active_task == null)
+            {
+                Task task = collision.gameObject.GetComponentInParent<Task>();
+                active_task = task;
+                state_machine.SetNextState(new DoTask(active_task));
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (active_task != null)
+        {
+            if (other.gameObject == active_task.gameObject)
+            {
+                active_task = null;
+                state_machine.SetNextState(new Move(last_direction));
+            }
         }
     }
 
@@ -78,6 +123,8 @@ public class PlayerUnit : MonoBehaviour
                     break;
             }
         }
+
+        last_direction = new_direction;
     }
 
     private void BeginMovement()

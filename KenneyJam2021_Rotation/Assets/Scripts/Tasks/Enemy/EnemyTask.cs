@@ -37,6 +37,7 @@ public class EnemyTask : Task, ICompleteable
 
     private void Start()
     {
+        vitality = profile.base_vitality;
         state_machine = new StateMachine<EnemyBaseState>(this, new EnemyBaseState());
         state_machine.SetNextState(new Appear());
         Subscribe_TaskCompleted(Task_OnComplete);
@@ -56,8 +57,19 @@ public class EnemyTask : Task, ICompleteable
         }
     }
 
+    public override float GetTaskTime()
+    {
+        return profile.base_time_per_tick;
+    }
+
+    public override TaskProfile GetTaskProfile()
+    {
+        return profile;
+    }
+
     void ICompleteable.DoTask()
     {
+        Debug.Log("Hit!");
         vitality--;
 
         if (vitality <= 0)

@@ -24,6 +24,6 @@ public class Defeat : EnemyBaseState
             yield return null;
         }
 
-        GameObject.Destroy(task);
+        GameObject.Destroy(task.gameObject);
     }
 }
