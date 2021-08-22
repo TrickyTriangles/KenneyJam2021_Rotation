@@ -11,6 +11,7 @@ namespace StateMachine.Player_Unit
         PlayerUnit.Direction direction;
         PlayerUnit unit;
         Vector3 current_angle;
+        bool is_initialized = false;
 
         public Move(PlayerUnit.Direction _direction)
         {
@@ -28,6 +29,7 @@ namespace StateMachine.Player_Unit
             unit = subject as PlayerUnit;
             unit.Subscribe_UnitClicked(PlayerUnit_UnitClicked);
             current_angle = unit.transform.rotation.eulerAngles;
+            is_initialized = true;
 
             unit.SetDirection(direction);
             unit.anim.Play("Move", 0);
@@ -45,7 +47,10 @@ namespace StateMachine.Player_Unit
 
         public override void EndOfStateCleanup()
         {
-            unit.Unsubscribe_UnitClicked(PlayerUnit_UnitClicked);
+            if (is_initialized)
+            {
+                unit.Unsubscribe_UnitClicked(PlayerUnit_UnitClicked);
+            }
         }
     }
 }

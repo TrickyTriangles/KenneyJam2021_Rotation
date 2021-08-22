@@ -31,4 +31,14 @@ public class Task : MonoBehaviour, ICompleteable
     void ICompleteable.DoTask()
     {
     }
+
+    public virtual float GetTaskTime()
+    {
+        return 1f;
+    }
+
+    public virtual TaskProfile GetTaskProfile()
+    {
+        return new TaskProfile();
+    }
 }
