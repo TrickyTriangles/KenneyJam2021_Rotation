@@ -1683,7 +1683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1277844534}
-  start_vitality: 30
+  start_vitality: 35
 --- !u!61 &1277844536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1775,12 +1775,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initial_score: 2021
-  initial_money: 50
+  initial_money: 25
   score_tick_delay: 1
   max_number_of_mines: 2
-  mine_spawn_delay: {x: 4, y: 8}
-  max_number_of_enemies: 12
-  enemy_spawn_delay: {x: 2, y: 6}
+  mine_spawn_delay: {x: 6, y: 8}
+  max_number_of_enemies: 14
+  enemy_spawn_delay: {x: 5, y: 6}
   enemy_prefab: {fileID: 2943688296780159711, guid: c89347c5fc2ca9b49a9de20dbfabe2aa, type: 3}
   mine_task_prefab: {fileID: 5116111612251242994, guid: a801140fff911a54d841de3f27887c93, type: 3}
 --- !u!1 &1583484913
