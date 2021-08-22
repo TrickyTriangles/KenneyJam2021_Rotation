@@ -28,11 +28,11 @@ namespace StateMachine.Enemy
 
             if (task.transform.rotation.z < 0f)
             {
-                next_state_callback(new Move());
+                next_state_callback(new Move(Move.Direction.LEFT));
             }
             else
             {
-                next_state_callback(new Move());
+                next_state_callback(new Move(Move.Direction.RIGHT));
             }
         }
     }

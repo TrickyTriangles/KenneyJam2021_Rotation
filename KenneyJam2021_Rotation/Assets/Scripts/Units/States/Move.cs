@@ -10,6 +10,7 @@ namespace StateMachine.Player_Unit
     {
         PlayerUnit.Direction direction;
         PlayerUnit unit;
+        Vector3 current_angle;
 
         public Move(PlayerUnit.Direction _direction)
         {
@@ -26,6 +27,7 @@ namespace StateMachine.Player_Unit
         {
             unit = subject as PlayerUnit;
             unit.Subscribe_UnitClicked(PlayerUnit_UnitClicked);
+            current_angle = unit.transform.rotation.eulerAngles;
 
             unit.SetDirection(direction);
             unit.anim.Play("Move", 0);
@@ -34,7 +36,8 @@ namespace StateMachine.Player_Unit
 
             while (true)
             {
-                subject.transform.rotation *= Quaternion.Euler(new Vector3(0f, 0f, unit.velocity * move_dir * Time.deltaTime));
+                current_angle.z += unit.velocity * move_dir * Time.deltaTime;
+                unit.RigidBody.SetRotation(Quaternion.Euler(current_angle));
 
                 yield return null;
             }

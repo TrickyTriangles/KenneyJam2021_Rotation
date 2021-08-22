@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Task : MonoBehaviour
+public class Task : MonoBehaviour, ICompleteable
 {
     public enum TaskType
     {
@@ -22,9 +22,13 @@ public class Task : MonoBehaviour
         }
     }
 
-    private int vitality = 1;
+    protected int vitality = 1;
 
     protected EventHandler TaskCompleted;
     public void Subscribe_TaskCompleted(EventHandler sub) { TaskCompleted += sub; }
     public void Unsubscribe_TaskCompleted(EventHandler sub) { TaskCompleted -= sub; }
+
+    void ICompleteable.DoTask()
+    {
+    }
 }

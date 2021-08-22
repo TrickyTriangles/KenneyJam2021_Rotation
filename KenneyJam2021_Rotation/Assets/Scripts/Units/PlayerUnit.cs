@@ -16,6 +16,7 @@ public class PlayerUnit : MonoBehaviour
     [SerializeField] private UnitProfile profile;
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator animator;
+    private Rigidbody2D rb;
 
     public Animator anim
     {
@@ -27,12 +28,18 @@ public class PlayerUnit : MonoBehaviour
         get { return profile.velocity; }
     }
 
+    public Rigidbody2D RigidBody
+    {
+        get { return rb; }
+    }
+
     private EventHandler UnitClicked;
     public void Subscribe_UnitClicked(EventHandler sub) { UnitClicked += sub; }
     public void Unsubscribe_UnitClicked(EventHandler sub) { UnitClicked -= sub; }
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         state_machine = new StateMachine.StateMachine<PlayerUnitBaseState>(this, new PlayerUnitBaseState());
         BeginMovement();
 
