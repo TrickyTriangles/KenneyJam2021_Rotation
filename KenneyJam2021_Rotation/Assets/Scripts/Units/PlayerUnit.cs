@@ -57,6 +57,11 @@ public class PlayerUnit : MonoBehaviour
         get { return last_direction; }
     }
 
+    public bool Alive
+    {
+        get { return alive; }
+    }
+
     #endregion
 
     #region Delegates and Subscriber Methods

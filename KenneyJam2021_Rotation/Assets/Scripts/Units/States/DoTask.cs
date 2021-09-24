@@ -54,6 +54,8 @@ public class DoTask : PlayerUnitBaseState
 
             // Damage unit
             unit.LoseVitality(1);
+            if (!unit.Alive) { break; }
+
             yield return null;
 
             // Wait for next tick
@@ -61,7 +63,14 @@ public class DoTask : PlayerUnitBaseState
             {
                 if (task_ended)
                 {
-                    next_state_callback?.Invoke(new Move(unit.LastDirection));
+                    if (unit.Alive)
+                    {
+                        next_state_callback?.Invoke(new Move(unit.LastDirection));
+                    }
+                    else
+                    {
+                        next_state_callback?.Invoke(new Defeat());
+                    }
                 }
 
                 if (task.transform.rotation.eulerAngles.z > unit.transform.rotation.eulerAngles.z)

@@ -123,7 +123,8 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void BeginNewGame()
     {
-        score = initial_score;
+        game_active = true;
+        Score = initial_score;
         Money = initial_money;
 
         StartCoroutine(PlayGame());
@@ -163,6 +164,8 @@ public class GameManager : Singleton<GameManager>
         }
 
         StopCoroutine(score_counter_routine);
+        StopCoroutine(spawn_mining_task_routine);
+        StopCoroutine(spawn_enemy_routine);
         GameEnd?.Invoke();
     }
 
